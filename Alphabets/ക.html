@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Malayalam Alphabet: ക</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFF;
+            margin: 0;
+            padding: 0;
+            color: #660000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .navbar {
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .navbar .logo {
+            max-width: 50px;
+            max-height: 50px;
+            margin-right: 50px;
+        }
+        .navbar nav {
+            margin-left: auto;
+            display: flex;
+            gap: 20px;
+        }
+        .navbar nav a {
+            text-decoration: none;
+            color: #660000;
+            font-weight: bold;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            width: 100%;
+            max-width: 1200px;
+            box-sizing: border-box;
+        }
+        .alphabet {
+            background-color: #fff;
+            border: 2px solid #cc0000;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .alphabet img {
+            max-width: 150px;
+            margin-bottom: 10px;
+            border: 2px solid #cc0000;
+            border-radius: 10px;
+        }
+        .alphabet audio {
+            margin-bottom: 10px;
+        }
+        .canvas-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        canvas {
+            border: 2px solid #cc0000;
+            border-radius: 10px;
+            background-color: #ffe6e6;
+            margin-top: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #cc0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #a30000;
+        }
+        @media screen and (min-width: 600px) {
+            .container {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="navigate.html">
+        <img src="logo.png" alt="Logo" class="logo" href=""></a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="#">Alphabets</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="alphabet">
+            <h2>Letter: ക (KA)</h2>
+            <img src="Gif/ക.gif" alt="ക GIF">
+            <div>
+                <audio controls>
+                    <source src="Audio/ക.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+            <div class="canvas-container">
+                <h3>Trace the alphabet:</h3>
+                <canvas id="canvasക" width="300" height="300"></canvas>
+                <button onclick="clearCanvas('canvasക')">Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function initCanvas(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            let drawing = false;
+
+            function startDrawing(event) {
+                drawing = true;
+                ctx.beginPath();
+                draw(event);
+            }
+
+            function stopDrawing() {
+                drawing = false;
+                ctx.beginPath();
+            }
+
+            function draw(event) {
+                if (!drawing) return;
+                
+                let clientX, clientY;
+                if (event.touches) {
+                    clientX = event.touches[0].clientX;
+                    clientY = event.touches[0].clientY;
+                } else {
+                    clientX = event.clientX;
+                    clientY = event.clientY;
+                }
+
+                const rect = canvas.getBoundingClientRect();
+                ctx.lineTo(clientX - rect.left, clientY - rect.top);
+                ctx.stroke();
+            }
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+
+            canvas.addEventListener('touchstart', (event) => {
+                event.preventDefault();
+                startDrawing(event);
+            }, { passive: false });
+            canvas.addEventListener('touchmove', (event) => {
+                event.preventDefault();
+                draw(event);
+            }, { passive: false });
+            canvas.addEventListener('touchend', (event) => {
+                event.preventDefault();
+                stopDrawing();
+            });
+        }
+
+        function clearCanvas(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Initialize canvas
+        document.addEventListener('DOMContentLoaded', () => {
+            initCanvas('canvasക');
+        });
+    </script>
+    
+    <button onclick="location.href='ഖ.html'">Next</button>
+</body>
+</html>
