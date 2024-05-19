@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malayalam Alphabet Maze</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFF;
+            margin: 0;
+            padding: 0;
+            color: #660000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .navbar {
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .navbar .logo {
+            max-width: 50px;
+            max-height: 50px;
+            margin-right: 50px;
+        }
+        .navbar nav {
+            margin-left: auto;
+            display: flex;
+            gap: 20px;
+        }
+        .navbar nav a {
+            text-decoration: none;
+            color: #660000;
+            font-weight: bold;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            width: 100%;
+            max-width: 1200px;
+            box-sizing: border-box;
+        }
+        .maze-container {
+            display: grid;
+            grid-template-columns: repeat(10, 50px);
+            grid-gap: 10px;
+            margin-bottom: 20px;
+        }
+        .maze-cell {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffe6e6;
+            border: 2px solid #cc0000;
+            border-radius: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .maze-cell.highlight {
+            background-color: #f00;
+        }
+        .letter-pool {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .letter {
+            padding: 10px 20px;
+            background-color: #cc0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .letter:hover {
+            background-color: #a30000;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #cc0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #a30000;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <img src="logo.png" alt="Logo" class="logo">
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Alphabets</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+    </div>
+
+    <div class="container">
+        <h1>Choose the letter that goes to the RED box</h1>
+        <div class="maze-container" id="maze-container">
+            <!-- Maze cells will be generated here -->
+        </div>
+        <div class="letter-pool" id="letter-pool">
+            <!-- Letter pool will be generated here -->
+        </div>
+        <button onclick="checkSolution()">Check Solution</button>
+        <button id="revert-button" class="hidden" onclick="revertPlacement()">Revert</button>
+    </div>
+
+    <script>
+        const alphabet = [
+            "അ", "ആ", "ഇ", "ഈ", "ഉ", "ഊ", "ഋ", "എ", "ഏ", "ഐ",
+            "ഒ", "ഓ", "ഔ", "ക", "ഖ", "ഗ", "ഘ", "ങ", "ച", "ഛ",
+            "ജ", "ഝ", "ഞ", "ട", "ഠ", "ഡ", "ഢ", "ണ", "ത", "ഥ",
+            "ദ", "ധ", "ന", "പ", "ഫ", "ബ", "ഭ", "മ", "യ", "ര",
+            "ല", "ള", "വ", "ശ", "ഷ", "സ", "ഹ", "ള", "ഴ", "റ"
+        ];
+
+        let maze = [];
+        let missingLetters = [];
+        let lastPlaced = { letter: null, cell: null };
+
+        function initializeMaze() {
+            const container = document.getElementById('maze-container');
+            container.innerHTML = '';
+
+            for (let i = 0; i < alphabet.length; i++) {
+                let cell = document.createElement('div');
+                cell.className = 'maze-cell';
+                cell.id = 'cell-' + i;
+                if (Math.random() < 0.2 && missingLetters.length < 10) {
+                    cell.innerText = '';
+                    missingLetters.push(alphabet[i]);
+                } else {
+                    cell.innerText = alphabet[i];
+                }
+                maze.push(cell);
+                container.appendChild(cell);
+            }
+
+            highlightNextEmptyCell();
+            generateLetterPool();
+        }
+
+        function generateLetterPool() {
+            const pool = document.getElementById('letter-pool');
+            pool.innerHTML = '';
+            missingLetters.sort(() => Math.random() - 0.5);
+
+            missingLetters.forEach(letter => {
+                let btn = document.createElement('div');
+                btn.className = 'letter';
+                btn.innerText = letter;
+                btn.onclick = () => placeLetter(letter, btn);
+                pool.appendChild(btn);
+            });
+        }
+
+        function placeLetter(letter, button) {
+            const emptyCell = maze.find(cell => cell.innerText === '');
+            if (emptyCell) {
+                emptyCell.innerText = letter;
+                button.classList.add('hidden');
+
+                if (lastPlaced.cell) {
+                    lastPlaced.cell.classList.remove('highlight');
+                }
+
+                lastPlaced.letter = letter;
+                lastPlaced.cell = emptyCell;
+
+                highlightNextEmptyCell();
+                document.getElementById('revert-button').classList.remove('hidden');
+            }
+        }
+
+        function revertPlacement() {
+    if (lastPlaced.cell) {
+        lastPlaced.cell.innerText = '';
+        lastPlaced.cell.classList.add('highlight');
+
+        const button = [...document.getElementsByClassName('letter')].find(btn => btn.innerText === lastPlaced.letter);
+        if (button) {
+            button.classList.remove('hidden');
+        }
+
+        lastPlaced.letter = null;
+        lastPlaced.cell = null;
+
+        highlightNextEmptyCell();
+        document.getElementById('revert-button').classList.add('hidden');
+    }
+}
+
+
+        function highlightNextEmptyCell() {
+            const nextEmptyCell = maze.find(cell => cell.innerText === '');
+            if (nextEmptyCell) {
+                nextEmptyCell.classList.add('highlight');
+            }
+        }
+
+        function checkSolution() {
+            let correct = true;
+            maze.forEach((cell, index) => {
+                if (cell.innerText !== alphabet[index]) {
+                    correct = false;
+                }
+            });
+
+            if (correct) {
+                alert('Congratulations! You arranged the letters correctly.');
+            } else {
+                alert('Some letters are in the wrong position. Try again!');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeMaze);
+    </script>
+    
+</body>
+</html>
