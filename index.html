@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Malayalam Alphabet</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .navbar {
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar .logo {
+            max-width: 50px;
+            max-height: 50px;
+            margin-right: 50px;
+        }
+        .navbar nav {
+            margin-left: auto;
+            display: flex;
+            gap: 20px;
+        }
+        .navbar nav a {
+            text-decoration: none;
+            color: #660000;
+            font-weight: bold;
+            position: relative;
+            padding: 5px 0;
+        }
+        .navbar nav a:hover::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 2px;
+            background-color: #660000;
+        }
+        .hero {
+            background: linear-gradient(rgba(102, 0, 0, 0.8), rgba(102, 0, 0, 0.8)), url('malayalam-background.jpg') center/cover no-repeat;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            width: 100%;
+        }
+        .hero h1 {
+            margin: 0;
+            font-size: 3em;
+            font-weight: bold;
+        }
+        .hero p {
+            margin: 10px 0 20px;
+            font-size: 1.5em;
+        }
+        .hero a {
+            background-color: #a3d000;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .hero a:hover {
+            background-color: #8db300;
+        }
+        .content {
+            padding: 40px 20px;
+            width: 100%;
+            max-width: 1200px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .content h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #660000;
+        }
+        .content p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .content a {
+            color: #660000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .intro {
+            margin-bottom: 40px;
+        }
+        .benefits {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .benefit {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: calc(33.333% - 20px);
+            box-sizing: border-box;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .benefit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .benefit h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #660000;
+        }
+        .benefit p {
+            font-size: 1em;
+        }
+        .testimonial {
+            margin-bottom: 40px;
+        }
+        .testimonial p {
+            font-size: 1em;
+            font-style: italic;
+        }
+        .testimonial .author {
+            font-weight: bold;
+            margin-top: 10px;
+            color: #660000;
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+        .footer a {
+            color: #a3d000;
+            text-decoration: none;
+        }
+        @media screen and (max-width: 600px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+            .hero p {
+                font-size: 1.2em;
+            }
+            .content h2 {
+                font-size: 2em;
+            }
+            .content p {
+                font-size: 1em;
+            }
+            .benefit {
+                width: 100%;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar">
+        <img src="logo.png" alt="Logo" class="logo">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="alphabet.html">Alphabets</a>
+            <a href="maze.html">Maze Game</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+    </div>
+
+    <div class="hero">
+        <h1>Welcome to Learn Malayalam Alphabet</h1>
+        <p>Your gateway to learning the beautiful Malayalam script.</p>
+        <a href="alphabet.html">Start Learning</a>
+    </div>
+
+    <div class="content">
+        <div class="intro">
+            <h2>About the Malayalam Language</h2>
+            <p>Malayalam is a Dravidian language spoken predominantly in the Indian state of Kerala. It is one of the 22 scheduled languages of India and has over 38 million speakers. Learning Malayalam can help you connect with a rich cultural heritage and open up new opportunities in the region.</p>
+        </div>
+        
+        <div class="benefits">
+            <div class="benefit">
+                <h3>Interactive Learning</h3>
+                <p>Our platform offers interactive lessons that make learning the Malayalam alphabet fun and engaging. Practice writing, listening, and speaking to master each letter.</p>
+            </div>
+            <div class="benefit">
+                <h3>Comprehensive Resources</h3>
+                <p>Access a wide range of resources, including audio clips, GIFs, and practice exercises, to reinforce your learning and improve your proficiency.</p>
+            </div>
+            <div class="benefit">
+                <h3>Fun Activities</h3>
+                <p>Participate in fun activities like our alphabet maze game to test your knowledge and keep your learning experience enjoyable.</p>
+            </div>
+        </div>
+        
+        <div class="testimonial">
+            <h2>Testimonials</h2>
+            <p>"This website has made learning Malayalam so much easier and fun. I love the interactive exercises and games!"</p>
+            <div class="author">- A Happy Learner</div>
+            <p>"The resources provided here are top-notch. I've been able to learn at my own pace and improve significantly."</p>
+            <div class="author">- Another Satisfied User</div>
+        </div>
+
+        <h2>Start Your Learning Journey</h2>
+        <p><a href="alphabet.html">Learn the Alphabet</a> | <a href="maze.html">Play the Maze Game</a></p>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 Learn Malayalam Alphabet. All rights reserved.</p>
+        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Contact Us</a></p>
+    </div>
+</body>
+</html>
